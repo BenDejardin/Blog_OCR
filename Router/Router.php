@@ -2,6 +2,8 @@
 
 namespace Router;
 
+use Source\Twig as SourceTwig;
+
 class Router
 {
     private array $routes = [];
@@ -41,7 +43,8 @@ class Router
             }
         }
         // Si la route n'existe pas
-        throw new \Exception('Ce chemin n\'existe pas'); // mettre une 404
+        $twig = SourceTwig::getTwigEnvironment();
+        return $twig->render('404.html.twig');
         
     }
 }
