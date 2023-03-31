@@ -2,8 +2,7 @@
 
 namespace Controllers;
 
-
-use Models\DB;
+use Models\ArticleModel;
 use Source\Twig as SourceTwig;
 
 class ArticleController
@@ -14,8 +13,8 @@ class ArticleController
         $twig = SourceTwig::getTwigEnvironment();
 
         // Recupere les articles de la base de données
-        $db = new DB();
-        $articles = $db->all('blog_posts');
+        $Article = new ArticleModel; //ligne 16
+        $articles = $Article->getArticles();
 
         // Renvoi la vue article.html.twig avec le nbArticle
         return $twig->render('articles.html.twig', ['articles' => $articles]);
@@ -29,8 +28,8 @@ class ArticleController
         $twig = SourceTwig::getTwigEnvironment();
 
         // Recupere les articles de la base de données
-        $db = new DB();
-        $article = $db->find('blog_posts' , $id);
+        $Article = new ArticleModel;
+        $article = $Article->getArticle($id);
 
         // Renvoi la vue article.html.twig avec le nbArticle
         return $twig->render('article.html.twig', ['article' => $article]);

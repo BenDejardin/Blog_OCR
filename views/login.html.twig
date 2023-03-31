@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+     <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow">
+          <div class="card-body">
+            <h5 class="card-title text-center mb-4">Login</h5>
+            <form method="POST" action="login-verif">
+              <div class="form-floating mb-3">
+                <input type="text" name="username" class="form-control" id="username" placeholder="Username" value="{{username}}">
+                <label for="username">Username</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" name="pwd" class="form-control" id="password" placeholder="Password">
+                <label for="password">Password</label>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign in</button>
+              </div>
+              <div class="text-center pt-3">
+                <p>Don't have an account? <a href="register">Sign up here</a></p>
+                <p>Forgot Password? <a href="#">Reset Password</a></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
