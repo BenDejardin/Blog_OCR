@@ -17,5 +17,9 @@ $router = new Router();
 $router->register('/home', ['Controllers\HomeController', 'index']);
 $router->register('/articles', ['Controllers\ArticleController', 'getAllArticle']);
 $router->register('/article', ['Controllers\ArticleController', 'getArticle']);
+$router->register('/login', ['Controllers\LoginController', 'indexLogin']);
+$router->register('/login-verif', ['Controllers\LoginController', 'login']);
+$router->register('/register', ['Controllers\LoginController', 'indexRegister']);
+$router->register('/register-verif', ['Controllers\LoginController', 'register']);
 
 (new App($router, $_SERVER['REQUEST_URI']))->run();
