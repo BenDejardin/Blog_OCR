@@ -37,4 +37,10 @@ class DB{
         $query->execute(['id' => $id]);
         return $query->fetch();
     }
+
+    public function delete(int $id): void
+    {
+        $query = $this->getPdo()->prepare("DELETE FROM $this->table WHERE id = :id");
+        $query->execute(['id' => $id]);
+    }
 }

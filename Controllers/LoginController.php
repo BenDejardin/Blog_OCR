@@ -29,14 +29,14 @@ class LoginController
         $user = $Login->login($_POST['username']);
         if($user){
             if(password_verify($_POST['pwd'], $user->pwd)){
-                $_SESSION['user'] = $user->username;
+                $_SESSION['username'] = $user->username;
                 $_SESSION['isAdmin'] = $user->isAdmin;
-                header('Location: home');
+                header('Location: ./home');
                 exit();
             }
         }
         // Renvoi la vue login.html.twig
-        header('Location: login?'.$_POST['username']);
+        header('Location: ./login?'.$_POST['username']);
         exit();
     }
 
@@ -62,15 +62,23 @@ class LoginController
         $twig = SourceTwig::getTwigEnvironment();
 
         if (empty($_POST['username']) || empty($_POST['pwd']) || empty($_POST['email'])) {
-            header('Location: register');
+            header('Location: ./register');
             exit();
         }
         if($_POST['pwd'] !== $_POST['pwd2']){
-            header('Location: register');
+            header('Location: ./register');
             exit();
         }
         $Login = new LoginModel;
         $Login->register($_POST['username'], $_POST['pwd'], $_POST['email']);
+        $_SESSION['username'] = $_POST['username'];
+        $_SESSION['isAdmin'] = 0;
+        header('Location: ./home');
+        exit();
+    }
+
+    public function logout(){
+        session_destroy();
         header('Location: home');
         exit();
     }

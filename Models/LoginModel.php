@@ -27,4 +27,12 @@ class LoginModel extends DB{
             'email' => $email
         ]);
     }
+
+    // public function isAdmin(int $id): bool
+    // {
+    //     $query = $this->getPdo()->prepare("SELECT isAdmin FROM $this->table WHERE id = :id");
+    //     $query->execute(['id' => $id]);
+    //     $user = $query->fetch();
+    //     return $user->isAdmin === 1;
+    // }
 }
