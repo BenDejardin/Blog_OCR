@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Article{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h1 class="mb-4">Edit Article</h1>
+  <form method="post" action="edit-article-verif?{{article.id}}">
+    <div class="form-group">
+      <label for="title">Titre</label>
+      <input type="text" class="form-control" id="title" name="title" value="{{article.title}}" required>
+    </div>
+    <div class="form-group">
+      <label for="subtitle">Sous-titre</label>
+      <input type="text" class="form-control" id="subtitle" name="subtitle" value="{{article.subtitle}}" required>
+    </div>
+    <div class="form-group">
+      <label for="content">Contenu</label>
+      <textarea class="form-control" id="content" name="content" rows="8" required>{{article.content|raw}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Edit Article</button>
+  </form>
+</div>
+
+{% endblock %}
