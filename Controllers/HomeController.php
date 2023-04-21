@@ -3,6 +3,8 @@
 namespace Controllers;
 
 use Source\Twig as SourceTwig;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class HomeController
 {
@@ -18,7 +20,38 @@ class HomeController
         }
 
         // Renvoi la vue home.html.twig avec le message
-        return $twig->render('home.html.twig', ['name' => $message]);
-        
+        return $twig->render('home.html.twig', ['name' => $message]); 
+    }
+
+    public function contact($param){
+
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        $email = $_POST['email'];
+        $message = $_POST['message'];
+
+        $mail = new PHPMailer(true);
+        try {
+            $mail->SMTPDebug = 0;
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'bendejardintest@gmail.com';
+            $mail->Password   = 'gvqohmmzasvktzek';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port       = 587;
+            $mail->setFrom($email, 'Contact');
+            $mail->addAddress('bendejardintest@gmail.com', 'BenDejardin');
+            $mail->isHTML(true);
+            $mail->Subject = 'Demande de contact';
+            $mail->Body    = 'Nom : '.$nom.' '.$prenom.'<br>'.nl2br($message);
+            $mail->AltBody = nl2br($message);
+            $mail->send();
+            header('Location: ./home');
+            exit();
+        } catch (Exception $e) {
+            echo "Le message n'a pas pu être envoyé. Erreur de l'expéditeur : {$mail->ErrorInfo}";
+        }
+
     }
 }
