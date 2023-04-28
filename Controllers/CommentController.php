@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-
 use Source\Twig as SourceTwig;
 use Models\CommentModel;
 
@@ -27,7 +26,7 @@ class CommentController
     public function deleteComment($idCommentAndArticle){
         $idComment = explode('&', $idCommentAndArticle)[0];
         $idArticle = explode('&', $idCommentAndArticle)[1];
-        
+
         (new CommentModel)->deleteComment($idComment);
         header('Location: ./article?'.$idArticle);
         exit();

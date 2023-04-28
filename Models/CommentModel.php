@@ -10,9 +10,9 @@ class CommentModel extends DB{
         $this->table = 'comments';
     }
 
-    public function getComments(int $idComment): mixed
+    public function getComments(int $idArticle): mixed
     {
-        return $this->getPdo()->query("SELECT * FROM $this->table WHERE blog_post_id = $idComment AND is_validated = 1")->fetchAll();
+        return $this->getPdo()->query("SELECT * FROM $this->table WHERE blog_post_id = $idArticle AND is_validated = 1")->fetchAll();
     }
 
     public function getComment(int $idComment): mixed
