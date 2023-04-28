@@ -13,13 +13,13 @@ class ArticleController
         return SourceTwig::getTwigEnvironment();
     }
 
-    private function getArticle($id, $isAdmin)
+    private function getArticle($idArticle, $isAdmin)
     {
-        $article = (new ArticleModel)->getArticle($id);
+        $article = (new ArticleModel)->getArticle($idArticle);
         if ($article == null) {
             return $this->getTwig()->render('404.html.twig');
         }
-        $comments = (new CommentModel)->getComments($id);
+        $comments = (new CommentModel)->getComments($idArticle);
         foreach ($comments as $comment){
             $comment->content = str_replace("&#039;", "'", $comment->content);
         }
@@ -47,9 +47,9 @@ class ArticleController
         return $this->getArticles(true);
     }
 
-    public function getArticleUser($id)
+    public function getArticleUser($idArticle)
     {
-        return $this->getArticle($id, false);
+        return $this->getArticle($idArticle, false);
     }
 
     public function addArticle()
@@ -65,52 +65,41 @@ class ArticleController
         if ($_SESSION['isAdmin'] != 1) {
             return $this->getTwig()->render('not_admin.html.twig');
         }
-        $article = (new ArticleModel)->createArticle($_POST['title'], $_POST['subtitle'], $_POST['content']);
+        (new ArticleModel)->createArticle($_POST['title'], $_POST['subtitle'], $_POST['content']);
         header('Location: ./articles-admin');
         exit();
     }
 
-    public function deleteArticle($id)
+    public function deleteArticle($idArticle)
     {
         if ($_SESSION['isAdmin'] != 1) {
             return $this->getTwig()->render('not_admin.html.twig');
         }
-        (new ArticleModel)->delete($id);
+        (new ArticleModel)->delete($idArticle);
         header('Location: ./articles-admin');
         exit();
     }
 
-    public function editArticle($id)
+    public function editArticle($idArticle)
     {
         if ($_SESSION['isAdmin'] != 1) {
             return $this->getTwig()->render('not_admin.html.twig');
         }
-        $article = (new ArticleModel)->getArticle($id);
+        $article = (new ArticleModel)->getArticle($idArticle);
         return $this->getTwig()->render('edit_article.html.twig', ['article' => $article]);
     }
 
-    public function editArticle2($id)
+    public function editArticle2($idArticle)
     {
         if ($_SESSION['isAdmin'] != 1) {
             return $this->getTwig()->render('not_admin.html.twig');
         }
-        (new ArticleModel)->updateArticle($id, $_POST['title'], $_POST['subtitle'], $_POST['content']);
+        if(!isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['subtitle']) || empty($_POST['subtitle']) || !isset($_POST['content']) || empty($_POST['content'])){
+            header('Location: ./edit-article?'.$idArticle);
+            exit();
+        }
+        (new ArticleModel)->updateArticle($idArticle, $_POST['title'], $_POST['subtitle'], $_POST['content']);
         header('Location: ./articles-admin');
-        exit();
-    }
-
-    public function createComment($id){
-        (new CommentModel)->createComment($id, $_SESSION['username'], $_POST['comment']);
-        header('Location: ./article?'.$id);
-        exit();
-    }
-
-    public function deleteComment($idCommentAndArticle){
-        $idComment = explode('&', $idCommentAndArticle)[0];
-        $idArticle = explode('&', $idCommentAndArticle)[1];
-        
-        (new CommentModel)->deleteComment($idComment);
-        header('Location: ./article?'.$idArticle);
         exit();
     }
 }

@@ -31,8 +31,8 @@ $router->register('/add-article-verif', ['Controllers\ArticleController', 'creat
 $router->register('/delete-article', ['Controllers\ArticleController', 'deleteArticle']);
 $router->register('/edit-article', ['Controllers\ArticleController', 'editArticle']);
 $router->register('/edit-article-verif', ['Controllers\ArticleController', 'editArticle2']);
-$router->register('/add-comment', ['Controllers\ArticleController', 'createComment']);
-$router->register('/delete-comment', ['Controllers\ArticleController', 'deleteComment']);
+$router->register('/add-comment', ['Controllers\CommentController', 'createComment']);
+$router->register('/delete-comment', ['Controllers\CommentController', 'deleteComment']);
 $router->register('/validate-comments', ['Controllers\CommentController', 'index']);
 $router->register('/valid-comment', ['Controllers\CommentController', 'validComment']);
 $router->register('/reject-comment', ['Controllers\CommentController', 'rejectComment']);

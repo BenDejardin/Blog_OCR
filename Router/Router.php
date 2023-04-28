@@ -6,24 +6,25 @@ use Source\Twig as SourceTwig;
 
 class Router
 {
+    // Tableau des routes
     private array $routes = [];
-    
+
     // Enregistre une route
     public function register(string $path, array $action): void{
         $this->routes[$path] = $action;
-    } 
+    }
 
     // Cette fonction résout une URI de requête HTTP en une action à effectuer
     public function resolve(string $uri): mixed {
 
         // Récupère le chemin de l'URI
-        $path = explode ('?', $uri)[0];
+        $path = explode('?', $uri)[0];
         // Ont supprime tous ce qu'il y a avant notre dossier public
-        $path = str_replace("/BlogOCR/public", "", $path);
+        $path = str_replace("/Blog_OCR-main/public", "", $path);
         // Test si la route existe
         $action = $this->routes[$path] ?? null;
 
-        // Si la route existe
+        // Si la route existe.
         if(is_array($action)){
 
             // $class = $action[0]; $method = $action[1];
@@ -34,7 +35,7 @@ class Router
 
             // Si la classe existe et que la méthode existe
             if(class_exists($className) && method_exists($className, $method)){
-                
+
                 // Instanciation de la classe $className
                 $class = new $className();
 
@@ -42,9 +43,8 @@ class Router
                 return call_user_func_array([$class, $method], [$argument]);
             }
         }
-        // Si la route n'existe pas
+        // Si la route n'existe pas.
         $twig = SourceTwig::getTwigEnvironment();
         return $twig->render('404.html.twig');
-        
     }
 }

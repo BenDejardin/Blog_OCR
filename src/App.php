@@ -18,7 +18,7 @@ class App{
         try {
             echo $this->router->resolve($this->uri);
         } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
+    echo htmlspecialchars($e->getMessage());
+}
     }
 }

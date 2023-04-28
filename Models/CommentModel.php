@@ -10,14 +10,14 @@ class CommentModel extends DB{
         $this->table = 'comments';
     }
 
-    public function getComments(int $id): mixed
+    public function getComments(int $idArticle): mixed
     {
-        return $this->getPdo()->query("SELECT * FROM $this->table WHERE blog_post_id = $id AND is_validated = 1")->fetchAll();
+        return $this->getPdo()->query("SELECT * FROM $this->table WHERE blog_post_id = $idArticle AND is_validated = 1")->fetchAll();
     }
 
-    public function getComment(int $id): mixed
+    public function getComment(int $idComment): mixed
     {
-        return $this->find($this->table, $id);
+        return $this->find($this->table, $idComment);
     }
 
     public function getCommentsToValidate(): mixed
@@ -35,28 +35,28 @@ class CommentModel extends DB{
         ]);
     }
 
-    public function deleteComment(int $id): void
+    public function deleteComment(int $idComment): void
     {
-        $this->delete($id);
+        $this->delete($idComment);
     }
 
-    public function rejectComment(int $id): void
+    public function rejectComment(int $idComment): void
     {
         $query = $this->getPdo()->prepare("UPDATE $this->table SET is_rejected = 1 WHERE id = :id");
-        $query->execute(['id' => $id]);
+        $query->execute(['id' => $idComment]);
     }
 
-    public function validateComment(int $id): void
+    public function validateComment(int $idComment): void
     {
         $query = $this->getPdo()->prepare("UPDATE $this->table SET is_validated = 1 WHERE id = :id");
-        $query->execute(['id' => $id]);
+        $query->execute(['id' => $idComment]);
     }
 
-    public function modifyComment(int $id, string $content): void
+    public function modifyComment(int $idComment, string $content): void
     {
         $query = $this->getPdo()->prepare("UPDATE $this->table SET content = :content, is_validated = :is_validated, date = :date WHERE id = :id");
         $query->execute([
-            'id' => $id,
+            'id' => $idComment,
             'content' => $content,
             'is_validated' => 0,
             'date' => date('Y-m-d H:i:s')

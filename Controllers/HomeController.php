@@ -8,22 +8,21 @@ use PHPMailer\PHPMailer\Exception;
 
 class HomeController
 {
-    // Test ou message = ....?message et peut etre null
-    public function index($message = null) 
+    public function index() 
     {
         // Appel de la fonction getTwigEnvironment() qui retourne l'environnement Twig
         $twig = SourceTwig::getTwigEnvironment();
 
-        // Pour test : Si $message est null alors $message = 'Home page'
-        if ($message === null) {
-            $message = 'Home page';
-        }
-
         // Renvoi la vue home.html.twig avec le message
-        return $twig->render('home.html.twig', ['name' => $message]); 
+        return $twig->render('home.html.twig'); 
     }
 
-    public function contact($param){
+    public function contact(){
+
+        if(!isset($_POST['nom']) || empty($_POST['nom']) || !isset($_POST['prenom']) || empty($_POST['prenom']) || !isset($_POST['email']) || empty($_POST['email']) || !isset($_POST['message']) || empty($_POST['message'])){
+            header('Location: ./home');
+            exit();
+        }
 
         $nom = $_POST['nom'];
         $prenom = $_POST['prenom'];
@@ -50,7 +49,7 @@ class HomeController
             header('Location: ./home');
             exit();
         } catch (Exception $e) {
-            echo "Le message n'a pas pu être envoyé. Erreur de l'expéditeur : {$mail->ErrorInfo}";
+            echo "Le message n'a pas pu être envoyé. Erreur de l'expéditeur : " . htmlspecialchars($mail->ErrorInfo);
         }
 
     }

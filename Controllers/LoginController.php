@@ -22,9 +22,6 @@ class LoginController
 
     public function login() 
     {
-        // Appel de la fonction getTwigEnvironment() qui retourne l'environnement Twig
-        $twig = SourceTwig::getTwigEnvironment();
-
         $Login = new LoginModel;
         $user = $Login->login($_POST['username']);
         if($user){
@@ -36,6 +33,10 @@ class LoginController
             }
         }
         // Renvoi la vue login.html.twig
+        if(!isset($_POST['username']) || empty($_POST['username'])){
+            header('Location: ./login');
+            exit();
+        }
         header('Location: ./login?'.$_POST['username']);
         exit();
     }
@@ -58,9 +59,6 @@ class LoginController
     }
 
     public function register(){
-        // Appel de la fonction getTwigEnvironment() qui retourne l'environnement Twig
-        $twig = SourceTwig::getTwigEnvironment();
-
         if (empty($_POST['username']) || empty($_POST['pwd']) || empty($_POST['email'])) {
             header('Location: ./register');
             exit();
