@@ -19,7 +19,7 @@ class Router
         // Récupère le chemin de l'URI
         $path = explode ('?', $uri)[0];
         // Ont supprime tous ce qu'il y a avant notre dossier public
-        $path = str_replace("/BlogOCR/public", "", $path);
+        $path = str_replace("/Blog_OCR-main/public", "", $path);
         // Test si la route existe
         $action = $this->routes[$path] ?? null;
 

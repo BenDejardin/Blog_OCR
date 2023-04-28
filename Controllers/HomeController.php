@@ -23,7 +23,12 @@ class HomeController
         return $twig->render('home.html.twig', ['name' => $message]); 
     }
 
-    public function contact($param){
+    public function contact(){
+
+        if(!isset($_POST['nom']) || empty($_POST['nom']) || !isset($_POST['prenom']) || empty($_POST['prenom']) || !isset($_POST['email']) || empty($_POST['email']) || !isset($_POST['message']) || empty($_POST['message'])){
+            header('Location: ./home');
+            exit();
+        }
 
         $nom = $_POST['nom'];
         $prenom = $_POST['prenom'];
@@ -50,7 +55,7 @@ class HomeController
             header('Location: ./home');
             exit();
         } catch (Exception $e) {
-            echo "Le message n'a pas pu être envoyé. Erreur de l'expéditeur : {$mail->ErrorInfo}";
+            echo "Le message n'a pas pu être envoyé. Erreur de l'expéditeur : " . htmlspecialchars($mail->ErrorInfo);
         }
 
     }

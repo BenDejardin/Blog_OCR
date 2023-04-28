@@ -15,9 +15,9 @@ class ArticleModel extends DB{
         return $this->all($this->table);
     }
 
-    public function getArticle(int $id): mixed
+    public function getArticle(int $idArticle): mixed
     {
-        return $this->find($this->table, $id);
+        return $this->find($this->table, $idArticle);
     }
 
     public function createArticle(string $title, string $subtitle, string $content): void
@@ -31,14 +31,14 @@ class ArticleModel extends DB{
         ]);
     }
 
-    public function updateArticle(int $id, string $title, string $subtitle, string $content): void
+    public function updateArticle(int $idArticle, string $title, string $subtitle, string $content): void
     {
         $query = $this->getPdo()->prepare("UPDATE $this->table SET title = :title, subtitle = :subtitle, content = :content WHERE id = :id");
         $query->execute([
             'title' => $title,
             'subtitle' => $subtitle,
             'content' => $content,
-            'id' => $id
+            'id' => $idArticle
         ]);
     }
 }
