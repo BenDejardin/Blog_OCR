@@ -20,6 +20,7 @@ class ArticleController
             return $this->getTwig()->render('404.html.twig');
         }
         $comments = (new CommentModel)->getComments($idArticle);
+
         foreach ($comments as $comment){
             $comment->content = str_replace("&#039;", "'", $comment->content);
         }
@@ -50,6 +51,7 @@ class ArticleController
     public function getArticleUser($idArticle)
     {
         return $this->getArticle($idArticle, false);
+
     }
 
     public function addArticle()
@@ -66,11 +68,13 @@ class ArticleController
             return $this->getTwig()->render('not_admin.html.twig');
         }
         (new ArticleModel)->createArticle($_POST['title'], $_POST['subtitle'], $_POST['content']);
+
         header('Location: ./articles-admin');
         exit();
     }
 
     public function deleteArticle($idArticle)
+
     {
         if ($_SESSION['isAdmin'] != 1) {
             return $this->getTwig()->render('not_admin.html.twig');

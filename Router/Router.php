@@ -35,7 +35,6 @@ class Router
 
             // Si la classe existe et que la méthode existe
             if(class_exists($className) && method_exists($className, $method)){
-
                 // Instanciation de la classe $className
                 $class = new $className();
 
