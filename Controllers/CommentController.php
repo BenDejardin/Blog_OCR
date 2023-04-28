@@ -14,6 +14,25 @@ class CommentController
         return $twig->render('comment_valid.html.twig', ['comments' => $comments]);
     }
 
+    public function createComment($idArticle){
+        if(!isset($_POST['comment']) || empty($_POST['comment'])){
+            header('Location: ./article?'.$idArticle);
+            exit();
+        }
+        (new CommentModel)->createComment($idArticle, $_SESSION['username'], $_POST['comment']);
+        header('Location: ./article?'.$idArticle);
+        exit();
+    }
+
+    public function deleteComment($idCommentAndArticle){
+        $idComment = explode('&', $idCommentAndArticle)[0];
+        $idArticle = explode('&', $idCommentAndArticle)[1];
+        
+        (new CommentModel)->deleteComment($idComment);
+        header('Location: ./article?'.$idArticle);
+        exit();
+    }
+
     public function validComment($idComment){
         (new CommentModel)->validateComment($idComment);
         header('Location: ./validate-comments');
