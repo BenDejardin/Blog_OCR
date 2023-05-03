@@ -47,9 +47,9 @@ class LoginController
         $twig = SourceTwig::getTwigEnvironment();
 
         if(isset($_POST['username']) || isset($_POST['pwd']) || isset($_POST['email'])){
-            !empty($_POST['username']) ? $username = $_POST['username'] : $username = null;
-            !empty($_POST['pwd']) ? $pwd = $_POST['pwd'] : $pwd = null;
-            !empty($_POST['email']) ? $email = $_POST['email'] : $email = null;
+            !empty($_POST['username']) ? $username = stripslashes( $_POST['username'] ) : $username = null;
+            !empty($_POST['pwd']) ? $pwd = stripslashes( $_POST['pwd'] ) : $pwd = null;
+            !empty($_POST['email']) ? $email = stripslashes( $_POST['email'] ) : $email = null;
             
             return $twig->render('register.html.twig', ['username' => $username, 'pwd' => $pwd, 'email' => $email]);
         }
