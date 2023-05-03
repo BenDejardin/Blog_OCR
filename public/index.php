@@ -41,4 +41,6 @@ $router->register('/edit-comment-verif', ['Controllers\CommentController', 'modi
 $router->register('/contact', ['Controllers\HomeController', 'contact']);
 
 
-(new App($router, $_SERVER['REQUEST_URI']))->run();
+if (isset($_SERVER['REQUEST_URI'])) {
+    (new App($router, $_SERVER['REQUEST_URI']))->run();
+}
