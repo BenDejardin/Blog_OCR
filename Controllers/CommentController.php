@@ -18,8 +18,8 @@ class CommentController
             header('Location: ./article?'.$idArticle);
             exit();
         }
-        (new CommentModel)->createComment($idArticle, $_SESSION['username'], $_POST['comment']);
-        header('Location: ./article?'.$idArticle);
+        (new CommentModel)->createComment($idArticle, $_SESSION['username'], stripslashes($_POST['comment']));
+        header('Location: ./article?' . $idArticle);
         exit();
     }
 
@@ -53,6 +53,7 @@ class CommentController
         $idArticle = explode('&', $idCommentAndArticle)[1];
         if(!isset($_POST['content']) || empty($_POST['content'])){
             header('Location: ./article?'.$idArticle);
+            exit;
         }
         $content = trim($_POST['content']);
         $content = htmlspecialchars($content);
