@@ -23,6 +23,10 @@ class LoginController
     public function login() 
     {
         $Login = new LoginModel;
+        if(!isset($_POST['username']) || empty($_POST['username'])){
+            header('Location: ./login');
+            exit();
+        }
         $user = $Login->login($_POST['username']);
         if($user){
             if(password_verify($_POST['pwd'], $user->pwd)){
