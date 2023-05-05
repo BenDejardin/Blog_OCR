@@ -17,6 +17,7 @@ class ArticleController
         return SourceTwig::getTwigEnvironment();
     }
 
+
     /**
      * Renvoi un article
      * @param $idArticle
