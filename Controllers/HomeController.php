@@ -8,6 +8,10 @@ use PHPMailer\PHPMailer\Exception;
 
 class HomeController
 {
+    /**
+     * Renvoi la vue Home
+     * @return string
+     */
     public function index() 
     {
         // Appel de la fonction getTwigEnvironment() qui retourne l'environnement Twig
@@ -17,6 +21,10 @@ class HomeController
         return $twig->render('home.html.twig'); 
     }
 
+    /**
+     * Envoi un mail de contact
+     * @return string
+     */
     public function contact(){
 
         if(!isset($_POST['nom']) || empty($_POST['nom']) || !isset($_POST['prenom']) || empty($_POST['prenom']) || !isset($_POST['email']) || empty($_POST['email']) || !isset($_POST['message']) || empty($_POST['message'])){

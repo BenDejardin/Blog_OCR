@@ -4,12 +4,20 @@ namespace Models;
 
 class LoginModel extends DB{
 
+    /**
+     * LoginModel constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->table = 'users';
     }
 
+    /**
+     * Renvoi un utilisateur
+     * @param string $username
+     * @return mixed
+     */
     public function login(string $username): mixed
     {
         $query = $this->getPdo()->prepare("SELECT * FROM $this->table WHERE username = :username");
@@ -18,6 +26,12 @@ class LoginModel extends DB{
         return $user;
     }
 
+    /**
+     * Création d'un utilisateur
+     * @param string $username
+     * @param string $password
+     * @param string $email
+     */
     public function register(string $username, string $password, string $email): void
     {
         $query = $this->getPdo()->prepare("INSERT INTO $this->table (username, pwd, email) VALUES (:username, :pwd, :email)");

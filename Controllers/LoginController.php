@@ -7,6 +7,10 @@ use Source\Twig as SourceTwig;
 
 class LoginController
 {
+    /**
+     * Renvoi la vue Login
+     * @return
+     */
     public function indexLogin(?string $username) 
     {
         // Appel de la fonction getTwigEnvironment() qui retourne l'environnement Twig
@@ -20,9 +24,17 @@ class LoginController
         return $twig->render('login.html.twig');
     }
 
+    /**
+     * Connecte l'utilisateur
+     * @return void
+     */
     public function login() 
     {
         $Login = new LoginModel;
+        if(!isset($_POST['username']) || empty($_POST['username'])){
+            header('Location: ./login');
+            exit();
+        }
         $user = $Login->login($_POST['username']);
         if($user){
             if(password_verify($_POST['pwd'], $user->pwd)){
@@ -41,15 +53,19 @@ class LoginController
         exit();
     }
 
+    /**
+     * Renvoi la vue Register
+     * @return
+     */
     public function indexRegister() 
     {
         // Appel de la fonction getTwigEnvironment() qui retourne l'environnement Twig
         $twig = SourceTwig::getTwigEnvironment();
 
         if(isset($_POST['username']) || isset($_POST['pwd']) || isset($_POST['email'])){
-            !empty($_POST['username']) ? $username = $_POST['username'] : $username = null;
-            !empty($_POST['pwd']) ? $pwd = $_POST['pwd'] : $pwd = null;
-            !empty($_POST['email']) ? $email = $_POST['email'] : $email = null;
+            !empty($_POST['username']) ? $username = stripslashes( $_POST['username'] ) : $username = null;
+            !empty($_POST['pwd']) ? $pwd = stripslashes( $_POST['pwd'] ) : $pwd = null;
+            !empty($_POST['email']) ? $email = stripslashes( $_POST['email'] ) : $email = null;
             
             return $twig->render('register.html.twig', ['username' => $username, 'pwd' => $pwd, 'email' => $email]);
         }
@@ -58,6 +74,10 @@ class LoginController
         return $twig->render('register.html.twig');
     }
 
+    /**
+     * Enregistre l'utilisateur
+     * @return void
+     */
     public function register(){
         if (empty($_POST['username']) || empty($_POST['pwd']) || empty($_POST['email'])) {
             header('Location: ./register');
@@ -75,6 +95,10 @@ class LoginController
         exit();
     }
 
+    /**
+     * Déconnecte l'utilisateur
+     * @return void
+     */
     public function logout(){
         session_destroy();
         header('Location: home');
