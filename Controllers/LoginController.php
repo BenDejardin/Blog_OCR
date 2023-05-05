@@ -7,6 +7,10 @@ use Source\Twig as SourceTwig;
 
 class LoginController
 {
+    /**
+     * Renvoi la vue Login
+     * @return
+     */
     public function indexLogin(?string $username) 
     {
         // Appel de la fonction getTwigEnvironment() qui retourne l'environnement Twig
@@ -20,6 +24,10 @@ class LoginController
         return $twig->render('login.html.twig');
     }
 
+    /**
+     * Connecte l'utilisateur
+     * @return void
+     */
     public function login() 
     {
         $Login = new LoginModel;
@@ -45,6 +53,10 @@ class LoginController
         exit();
     }
 
+    /**
+     * Renvoi la vue Register
+     * @return
+     */
     public function indexRegister() 
     {
         // Appel de la fonction getTwigEnvironment() qui retourne l'environnement Twig
@@ -62,6 +74,10 @@ class LoginController
         return $twig->render('register.html.twig');
     }
 
+    /**
+     * Enregistre l'utilisateur
+     * @return void
+     */
     public function register(){
         if (empty($_POST['username']) || empty($_POST['pwd']) || empty($_POST['email'])) {
             header('Location: ./register');
@@ -79,6 +95,10 @@ class LoginController
         exit();
     }
 
+    /**
+     * Déconnecte l'utilisateur
+     * @return void
+     */
     public function logout(){
         session_destroy();
         header('Location: home');

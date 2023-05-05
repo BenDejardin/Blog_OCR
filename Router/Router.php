@@ -14,13 +14,17 @@ class Router
         $this->routes[$path] = $action;
     }
 
-    // Cette fonction résout une URI de requête HTTP en une action à effectuer
+    /**
+     * Cette fonction résout une URI de requête HTTP en une action à effectuer
+     * @param string $uri
+     * @return mixed
+     */
     public function resolve(string $uri): mixed {
 
         // Récupère le chemin de l'URI
         $path = explode('?', $uri)[0];
         // Ont supprime tous ce qu'il y a avant notre dossier public
-        $path = str_replace("/Blog_OCR-main/public", "", $path);
+        $path = str_replace("/Blog_OCR/public", "", $path);
         // Test si la route existe
         $action = $this->routes[$path] ?? null;
 

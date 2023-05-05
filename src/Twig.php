@@ -6,6 +6,10 @@ class Twig
 {
     private static $instance = null;
 
+    /**
+     * Renvoi l'environnement Twig
+     * @return \Twig\Environment
+     */
     public static function getTwigEnvironment(): \Twig\Environment
     {
 

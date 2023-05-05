@@ -1,0 +1,53 @@
+title Gestion des commentaires
+
+participant Utilisateur
+participant Systeme
+participant Admin
+
+opt Utilisateur veut ajouter un commentaire
+    Utilisateur->Systeme: Accède à la page Commentaire
+    Systeme-->Utilisateur: Affiche les commentaires validés
+    Utilisateur->Systeme: Ecrit un commentaire
+    Systeme->Admin: Ajoute le commentaire à la liste des commentaires à valider
+    Admin-->Systeme: Affiche la liste des commentaires à valider
+    Systeme->Admin: Affiche le commentaire ajouté
+    Admin-->Systeme: Valide ou refuse le commentaire
+    alt Commentaire validé
+        Systeme->Utilisateur: Affiche "Votre commentaire a été validé"
+        Systeme->Utilisateur: Affiche le commentaire validé
+    else Commentaire refusé
+        Systeme->Utilisateur: Affiche "Votre commentaire a été refusé"
+    end
+end
+
+opt Utilisateur veut modifier son commentaire
+    Utilisateur->Systeme: Accède à la page Commentaire
+    Systeme-->Utilisateur: Affiche les commentaires validés
+    Utilisateur->Systeme: Sélectionne son commentaire
+    Systeme-->Utilisateur: Affiche le commentaire sélectionné
+    Utilisateur->Systeme: Modifie son commentaire
+    Systeme->Admin: Ajoute le commentaire modifié à la liste des commentaires à valider
+    Admin-->Systeme: Affiche la liste des commentaires à valider
+    Systeme->Admin: Affiche le commentaire modifié
+    Admin-->Systeme: Valide ou refuse le commentaire modifié
+    alt Commentaire validé
+        Systeme->Utilisateur: Affiche "Votre commentaire a été modifié et validé"
+        Systeme->Utilisateur: Affiche le commentaire modifié validé
+    else Commentaire refusé
+        Systeme->Utilisateur: Affiche "Votre commentaire a été modifié et refusé"
+    end
+end
+
+opt Utilisateur veut supprimer son commentaire
+    Utilisateur->Systeme: Accède à la page Commentaire
+    Systeme-->Utilisateur: Affiche les commentaires validés
+    Utilisateur->Systeme: Supprime son commentaire
+    Systeme-->Utilisateur: Affiche "Votre commentaire a été supprimé"
+end
+
+opt Admin veut supprimer un commentaire
+    Admin->Systeme: Accède à la page Commentaire
+    Systeme->Admin: Affiche la liste des commentaires
+    Admin->Systeme: Supprime un commentaire
+    Systeme->Admin: Affiche la suppression du commentaire
+end
