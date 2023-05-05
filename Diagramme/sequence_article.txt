@@ -1,0 +1,38 @@
+title Gestion des articles
+
+participant Utilisateur
+participant Systeme
+participant Admin
+
+opt Admin veut créer un nouvel article
+    Admin->Systeme: Accès à la page de création d'article
+    Systeme->Admin: Affiche la page de création d'article
+    Admin->Systeme: Saisie les informations de l'article
+    Systeme->Admin: Valide les informations saisies
+    Systeme->Utilisateur: Affiche le nouvel article
+end
+
+opt Admin veut modifier un article
+    Admin->Systeme: Accès à la page de gestion des articles
+    Systeme->Admin: Affiche la page de gestion des articles
+    Admin->Systeme: Sélectionne l'article à modifier
+    Systeme->Admin: Affiche l'article sélectionné
+    Admin->Systeme: Modifie les informations de l'article
+    Systeme->Admin: Valide les informations modifiées
+    Systeme->Utilisateur: Affiche l'article modifié
+end
+
+opt Admin veut supprimer un article
+    Admin->Systeme: Accès à la page de gestion des articles
+    Systeme->Admin: Affiche la page de gestion des articles
+    Admin->Systeme: Sélectionne l'article à supprimer
+    Systeme->Admin: Confirme la suppression de l'article
+    Systeme->Admin: Affichage de la page des articles actualisé
+end
+
+opt Utilisateur veut voir un article
+    Utilisateur->Systeme: Accès à la page des articles
+    Systeme->Utilisateur: Affiche tous les articles disponibles
+    Utilisateur->Systeme: Sélectionne l'article à voir
+    Systeme->Utilisateur: Affiche l'article sélectionné
+end
