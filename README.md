@@ -33,3 +33,6 @@ Le site est ensuite accessible à l'adresse http://localhost/votre-projet/public
 Ce projet dispose d'une intégration Codacy pour surveiller la qualité du code. Vous pouvez consulter le rapport en cliquant sur le badge ci-dessous :
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/be30f7b34b184566adceef8ad0a50bd8)](https://app.codacy.com/gh/BenDejardin/Blog_OCR/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
+## PHPStan
+![PHPStan](https://raw.githubusercontent.com/BenDejardin/Blog_OCR/main/diagrammes/phpstan.png)
