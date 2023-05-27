@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'article{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4">Modification d'article</h1>
+  <form method="post" action="edit-article-verif?{{ article.id }}">
+    <div class="mb-3">
+      <label for="title" class="form-label">Titre</label>
+      <input type="text" class="form-control" id="title" name="title" value="{{ formData.title ?? article.title }}">
+      {% if errors.title %}
+      <div class="text-danger">{{ errors.title }}</div>
+      {% endif %}
+    </div>
+    <div class="mb-3">
+      <label for="subtitle" class="form-label">Sous-titre</label>
+      <input type="text" class="form-control" id="subtitle" name="subtitle" value="{{ formData.subtitle ?? article.subtitle }}">
+      {% if errors.subtitle %}
+      <div class="text-danger">{{ errors.subtitle }}</div>
+      {% endif %}
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">Contenu</label>
+      <textarea class="form-control" id="content" name="content" rows="8">{{ formData.content ?? article.content|raw }}</textarea>
+      {% if errors.content %}
+      <div class="text-danger">{{ errors.content }}</div>
+      {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">Modifier l'article</button>
+  </form>
+</div>
+{% endblock %}

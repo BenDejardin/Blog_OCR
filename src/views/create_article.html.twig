@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Article{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h1 class="mb-4">Ajouter un article</h1>
+  <form method="post" action="add-article-verif">
+    <div class="form-group">
+      <label for="title">Titre</label>
+      <input type="text" class="form-control" id="title" name="title" value="{{ title }}">
+      {% if errors.title %}
+        <p class="error">{{ errors.title }}</p>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      <label for="subtitle">Sous-titre</label>
+      <input type="text" class="form-control" id="subtitle" name="subtitle" value="{{ subtitle }}">
+      {% if errors.subtitle %}
+        <p class="error">{{ errors.subtitle }}</p>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      <label for="content">Contenu</label>
+      <textarea class="form-control" id="content" name="content" rows="8">{{ content }}</textarea>
+      {% if errors.content %}
+        <p class="error">{{ errors.content }}</p>
+      {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter un article</button>
+  </form>
+</div>
+
+{% endblock %}

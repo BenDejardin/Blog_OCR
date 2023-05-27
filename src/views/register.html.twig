@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-4">Inscription</h5>
+                    <form method="POST" action="register-verif">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="username" class="form-control" id="username" placeholder="Username" value="{{ formData.username }}">
+                            <label for="username">Pseudo</label>
+                            {% if errors.username %}
+                                <p class="error">{{ errors.username }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" value="{{ formData.email }}">
+                            <label for="email">Email</label>
+                            {% if errors.email %}
+                                <p class="error">{{ errors.email }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" name="pwd" class="form-control" id="password" placeholder="Password" value="{{ formData.pwd }}">
+                            <label for="password">Mot de passe</label>
+                            {% if errors.pwd %}
+                                <p class="error">{{ errors.pwd }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" name="pwd2" class="form-control" id="password2" placeholder="Confirm Password">
+                            <label for="password2">Confirmer le mot de passe</label>
+                            {% if errors.pwd2 %}
+                                <p class="error">{{ errors.pwd2 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Inscription</button>
+                        </div>
+                        <div class="text-center pt-3">
+                            <p>Vous avez déjà un compte ? <a href="login">Connectez-vous ici</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

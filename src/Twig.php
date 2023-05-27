@@ -4,7 +4,7 @@ namespace Source;
 
 class Twig
 {
-    private static $instance = null;
+    private static mixed $instance = null;
 
     /**
      * Renvoi l'environnement Twig
@@ -15,7 +15,7 @@ class Twig
 
         // Ont ne créer qu'une seule instance de Twig / Singleton
         if(self::$instance === null){
-            $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../views');
+            $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/views');
             self::$instance = new \Twig\Environment($loader, [
                 'cache' => false
             ]);

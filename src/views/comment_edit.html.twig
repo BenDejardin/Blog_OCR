@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification du commentaire{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h1 class="mb-4">Modification du commentaire</h1>
+  <form method="post" action="edit-comment-verif?{{ comment.id }}&{{ comment.blog_post_id }}">
+    <div class="form-group">
+      <label for="content">Commentaire</label>
+      <textarea class="form-control" id="content" name="content" rows="8">{{ errors.content ? app.request.get('content') : comment.content|raw }}</textarea>
+      {% if errors.content %}
+        <div class="text-danger">{{ errors.content }}</div>
+      {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">Modifier le commentaire</button>
+  </form>
+</div>
+
+{% endblock %}

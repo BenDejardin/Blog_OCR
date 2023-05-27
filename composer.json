@@ -6,10 +6,13 @@
 
     "autoload": {
         "psr-4": {
-            "Router\\": "Router/",
-            "Controllers\\": "Controllers/", 
+            "Router\\": "src/Router/",
+            "Controllers\\": "src/Controllers/", 
             "Source\\": "src/", 
-            "Models\\": "Models/"
+            "Models\\": "src/Models/"
         }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10"
     }
 }

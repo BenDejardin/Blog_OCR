@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <img class="img-fluid" style="object-fit: cover;height: 200px;" src="https://picsum.photos/1620/300" alt="img">
+                <div class="card-body">
+                    <h5 class="card-title">{{article.title}}</h5>
+                    <p class="card-text">{{article.content|nl2br}}</p>
+                </div>
+                <div class="card-footer text-end">
+                    <p>{{article.author}} - {{article.updated_at|date("d/m/Y")}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% if comments is not empty %}
+        <h2>Commentaires</h2>
+    {% endif %}
+    
+
+    {% for comment in comments %}
+    <div class="row mb-4">
+    <div class="col-md-2">
+        <img src="https://picsum.photos/200" class="rounded mx-auto d-block img-fluid" alt="photo de profil">
+    </div>
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <div class="d-flex flex-column">
+                    <h5 class="card-title">{{ comment.author }}</h5>
+                    <p class="card-subtitle">{{ comment.date|date("d/m/Y H:i") }}</p>
+                </div>
+                {% if username == comment.author or isAdmin != 0 %}
+                    <div class="d-flex">
+                        <div class="ml-auto">
+                            <a href="edit-comment?{{comment.id}}" class="btn btn-sm btn-link"><i class="fas fa-edit fa-lg"></i></a>
+                        </div>
+                        <div class="ml-auto">
+                            <a href="delete-comment?{{comment.id}}&{{article.id}}" class="btn btn-sm btn-link"><i class="fas fa-trash-alt fa-lg"></i></a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ comment.content|raw|nl2br }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+    {% if username is not null %}
+        <form action="add-comment?{{ article.id }}" method="POST">
+            <div class="form-group mb-4">
+                <label for="comment" class="h2">Ecrire un commentaire</label>
+                <textarea class="form-control" id="comment" name="comment" rows="5" placeholder="Saisissez votre commentaire ici">{{ post_data.comment|default('') }}</textarea>
+                {% if errors.comment %}
+                <p class="text-danger">{{ errors.comment }}</p>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">Poster</button>
+        </form>
+    {% endif %}
+
+
+
+    
+</div>
+{% endblock %}

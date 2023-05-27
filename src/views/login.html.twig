@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-4">Connexion</h5>
+                    <form method="POST" action="./login-verif">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="username" class="form-control" id="username" placeholder="Username" value="{{ username }}">
+                            <label for="username">Pseudo</label>
+                            {% if errors.username %}
+                                <p class="error">{{ errors.username }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" name="pwd" class="form-control" id="password" placeholder="Password">
+                            <label for="password">Mot de passe</label>
+                            {% if errors.pwd %}
+                                <p class="error">{{ errors.pwd }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Se connecter</button>
+                        </div>
+                        <div class="text-center pt-3">
+                            <p>Vous n'avez pas de compte ? <a href="./register">S'inscrire ici</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
